@@ -22,13 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
             h: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Logo_Banco_Macro.svg/3840px-Logo_Banco_Macro.svg.png',
             link: 'https://career8.successfactors.com/portalcareer?career_ns=job_listing&company=bancomacro&navBarLevel=JOB_SEARCH&rcm_site_locale=es_ES&site=VjItekU2b1RxaW9LendsLzhXY0dPZ1cxUT09&career_job_req_id=4916&_s.crb=%252fdzZBkuNNniw6xP8BVI%252fIDYCRcZ4uL2DNDbN2xuxVmI%253d'
         },
-        // PedidosYa con el nuevo link de Logistics Analyst
         { 
             n: 'PedidosYa', 
             d: 'pedidosya.com.ar',
             link: 'https://empleos.pedidosya.com/job/logistics-and-distribution-analyst-in-buenos-aires-argentina-jid-2019'
         },
-        { n: 'Peñaflor', d: 'grupopenaflor.com.ar', h: 'https://univins.ca/wp-content/uploads/2023/11/grupopenaflor_elesteco_group_logo.png' },
+        // Peñaflor con el nuevo link de HiringRoom
+        { 
+            n: 'Peñaflor', 
+            d: 'grupopenaflor.com.ar', 
+            h: 'https://univins.ca/wp-content/uploads/2023/11/grupopenaflor_elesteco_group_logo.png',
+            link: 'https://grupopenaflor.hiringroom.com/jobs/get_vacancy/69bd6552eed9d18797358159'
+        },
         { n: 'Toyota', d: 'toyota.com.ar' },
         // Inactivas
         { n: 'Disney', d: 'disney.com.ar', inactiva: true },
