@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
             d: 'arcor.com',
             link: 'https://emqm.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/es/sites/grupoarcorgl/jobs/preview/44966/?keyword=pasante&location=Buenos+Aires%2C+Argentina&locationId=100000136275465&locationLevel=state&mode=location'
         },
-        // Link cambiado al portal oficial de Unilever
+        // Unilever con el link original de Cía de Talentos
         { 
             n: 'Unilever', 
             d: 'unilever.com.ar',
-            link: 'https://careers.unilever.com/latam/es'
+            link: 'https://grupociadetalentos.com/unicxs2026/'
         },
         { n: 'Pepsico', d: 'pepsico.com' },
         { 
