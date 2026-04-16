@@ -27,14 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
             d: 'pedidosya.com.ar',
             link: 'https://empleos.pedidosya.com/job/logistics-and-distribution-analyst-in-buenos-aires-argentina-jid-2019'
         },
-        // Peñaflor con el nuevo link de HiringRoom
         { 
             n: 'Peñaflor', 
             d: 'grupopenaflor.com.ar', 
             h: 'https://univins.ca/wp-content/uploads/2023/11/grupopenaflor_elesteco_group_logo.png',
             link: 'https://grupopenaflor.hiringroom.com/jobs/get_vacancy/69bd6552eed9d18797358159'
         },
-        { n: 'Toyota', d: 'toyota.com.ar' },
+        // Toyota con el nuevo link de Workday
+        { 
+            n: 'Toyota', 
+            d: 'toyota.com.ar',
+            link: 'https://toyota.wd503.myworkdayjobs.com/es/TLAC/details/Programa-de-Pasantas-TOYOTA-2025_10310306?timeType=8619927b7938100b6f4b8009861a0057'
+        },
         // Inactivas
         { n: 'Disney', d: 'disney.com.ar', inactiva: true },
         { n: 'Holcim', d: 'holcim.com.ar', inactiva: true },
@@ -43,10 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const container = document.getElementById('grid');
     
-    // Mandamos las inactivas al fondo
     empresas.sort((a, b) => (a.inactiva === b.inactiva) ? 0 : a.inactiva ? 1 : -1);
 
-    // Creamos el Tooltip (cartelito) custom
     const tooltip = document.createElement('div');
     tooltip.style.cssText = "position:absolute; background:#ef4444; color:white; padding:8px 12px; border-radius:6px; font-size:12px; font-weight:bold; visibility:hidden; z-index:1000; pointer-events:none; white-space:nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transform: translate(-50%, -120%); transition: visibility 0.1s;";
     tooltip.innerText = "No hay postulaciones actualmente";
