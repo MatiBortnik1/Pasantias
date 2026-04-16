@@ -1,79 +1,95 @@
-/* Configuración General */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
 body {
-    background-color: #0f172a; /* Azul oscuro */
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    /* Fondo animado en tonos Slate y Navy muy profesionales */
+    background: linear-gradient(-45deg, #0b1120, #111827, #0f172a, #020617);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header {
+    text-align: center;
+    padding: 60px 20px 20px 20px;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #f1f5f9;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 45px;
+    max-width: 1050px;
+    margin: 40px auto 80px auto;
     padding: 20px;
-    display: flex;
+    position: relative; 
+    z-index: 1;
+}
+
+.bubble {
+    width: 190px; 
+    height: 190px;
+    /* Efecto de vidrio esmerilado oscuro */
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    display: flex; 
     flex-direction: column;
     align-items: center; 
-    min-height: 100vh;
-}
-
-h1 {
-    margin-bottom: 30px;
-    font-size: 2rem;
-    text-align: center;
-}
-
-/* El Contenedor de las burbujas */
-#grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    max-width: 1000px;
-    justify-content: flex-start; /* Alineado a la izquierda como el original */
-}
-
-/* Estilo de cada Burbuja */
-.bubble {
-    width: 110px;
-    height: 110px;
-    background: #1e293b;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    text-decoration: none;
-    color: white;
-    transition: transform 0.2s, background 0.2s;
-    padding: 10px;
-    box-sizing: border-box;
+    text-decoration: none; 
+    color: #cbd5e1;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.bubble:hover { 
+    transform: translateY(-8px) scale(1.06); 
+    border-color: rgba(96, 165, 250, 0.5); /* Resplandor azul corporativo */
+    color: #ffffff;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(96, 165, 250, 0.1);
+}
+
+.bubble img { 
+    width: 85px; 
+    height: 85px; 
+    object-fit: contain; 
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.bubble span { 
+    font-size: 11px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
     text-align: center;
-    border: 1px solid #334155;
+    letter-spacing: 1px;
 }
 
-/* Efecto Hover */
-.bubble:hover {
-    transform: translateY(-5px);
-    background: #334155;
-}
-
-/* Logos */
-.bubble img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    margin-bottom: 8px;
-}
-
-/* Texto */
-.bubble span {
-    font-size: 0.75rem;
-    font-weight: 500;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Ajuste para celular */
-@media (max-width: 600px) {
-    #grid {
-        justify-content: center; /* Solo centra en pantallas chicas */
-        gap: 15px;
-    }
-}
+@media (max-width: 900px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .grid-container { grid-template-columns: 1fr; } }
