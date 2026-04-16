@@ -16,7 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
             d: 'unilever.com.ar',
             link: 'https://grupociadetalentos.com/unicxs2026/'
         },
-        { n: 'Pepsico', d: 'pepsico.com' },
+        // Pepsico con el link y el mensaje de alerta
+        { 
+            n: 'Pepsico', 
+            d: 'pepsico.com',
+            link: 'https://firstgenpepsico.com/argentina',
+            alertMsg: 'A esta pasantía ya me postulé en Febrero pero al día de hoy no sé si seguirá vigente o si ya finalizó.'
+        },
         { 
             n: 'Tenaris', 
             d: 'tenaris.com', 
@@ -40,14 +46,19 @@ document.addEventListener("DOMContentLoaded", () => {
         card.target = "_blank";
         card.className = 'bubble';
         
+        // Lógica para mostrar el cartel si la empresa tiene un alertMsg
+        if (emp.alertMsg) {
+            card.addEventListener('click', (e) => {
+                const proceed = confirm(emp.alertMsg + "\n\n¿Querés ir a la página de todas formas?");
+                // Si el usuario hace clic en "Cancelar", evitamos que se abra el enlace
+                if (!proceed) {
+                    e.preventDefault(); 
+                }
+            });
+        }
+        
         const logoSrc = emp.h ? emp.h : `https://s2.googleusercontent.com/s2/favicons?domain=${emp.d}&sz=256`;
         
         card.innerHTML = `
             <img src="${logoSrc}" 
-                 onerror="this.src='https://via.placeholder.com/85?text=${emp.n.split(' ')[0]}&bg=1e293b&textColor=ffffff'">
-            <span>${emp.n}</span>
-        `;
-        
-        container.appendChild(card);
-    });
-});
+                 onerror="this.src='https://via
