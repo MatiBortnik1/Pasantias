@@ -33,11 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
             h: 'https://univins.ca/wp-content/uploads/2023/11/grupopenaflor_elesteco_group_logo.png',
             link: 'https://grupopenaflor.hiringroom.com/jobs/get_vacancy/69bd6552eed9d18797358159'
         },
-        // Toyota con el nuevo link de Workday
+        // Toyota ahora con su mensaje de alerta
         { 
             n: 'Toyota', 
             d: 'toyota.com.ar',
-            link: 'https://toyota.wd503.myworkdayjobs.com/es/TLAC/details/Programa-de-Pasantas-TOYOTA-2025_10310306?timeType=8619927b7938100b6f4b8009861a0057'
+            link: 'https://toyota.wd503.myworkdayjobs.com/es/TLAC/details/Programa-de-Pasantas-TOYOTA-2025_10310306?timeType=8619927b7938100b6f4b8009861a0057',
+            alertMsg: 'La pasantía comenzó en noviembre 2025 pero sigue figurando en la página'
         },
         // Inactivas
         { n: 'Disney', d: 'disney.com.ar', inactiva: true },
