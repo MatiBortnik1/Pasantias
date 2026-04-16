@@ -1,13 +1,13 @@
 /* Configuración General */
 body {
-    background-color: #0f172a; /* Fondo azul oscuro profundo */
+    background-color: #0f172a; /* Azul oscuro */
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el título y el grid en la pantalla */
+    align-items: center; /* Centra el título */
     min-height: 100vh;
 }
 
@@ -19,14 +19,13 @@ h1 {
 
 /* El Contenedor de las burbujas */
 #grid {
-    display: grid;
-    /* Esto crea columnas automáticas de mínimo 110px que se ajustan solas */
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+    display: flex;
+    flex-wrap: wrap;       /* Hace que las burbujas bajen cuando no hay espacio */
+    justify-content: center; /* LA CLAVE: Centra las burbujas en cada fila */
     gap: 20px;
     width: 100%;
-    max-width: 800px; /* Ancho máximo para que no se estire de más en PC */
-    justify-content: center; /* CENTRA las burbujas si sobran espacios */
-    justify-items: center;   /* Centra cada burbuja dentro de su celda */
+    max-width: 1000px;     /* Ancho máximo para PC */
+    margin: 0 auto;
 }
 
 /* Estilo de cada Burbuja */
@@ -34,52 +33,53 @@ h1 {
     width: 110px;
     height: 110px;
     background: #1e293b;
-    border-radius: 20px; /* Bordes redondeados modernos */
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: white;
-    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, background 0.2s;
     padding: 10px;
     box-sizing: border-box;
     text-align: center;
     border: 1px solid #334155;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Efecto al pasar el mouse (solo en PC) */
-.bubble:hover {
-    transform: translateY(-5px);
-    background: #334155;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+/* Efecto Hover solo para PC */
+@media (hover: hover) {
+    .bubble:hover {
+        transform: translateY(-5px);
+        background: #334155;
+    }
 }
 
-/* Estilo de los Logos */
+/* Logos */
 .bubble img {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     object-fit: contain;
     margin-bottom: 8px;
-    border-radius: 8px;
 }
 
-/* Texto de la empresa */
+/* Texto */
 .bubble span {
     font-size: 0.75rem;
     font-weight: 500;
+    width: 100%;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
 }
 
-/* Ajustes específicos para celulares muy chicos */
-@media (max-width: 400px) {
+/* Ajuste para celulares muy pequeños */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
     #grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 15px;
+        gap: 12px; /* Menos espacio entre burbujas en el celu */
     }
     .bubble {
         width: 100px;
