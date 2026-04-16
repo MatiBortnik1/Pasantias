@@ -61,4 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
         
         card.innerHTML = `
             <img src="${logoSrc}" 
-                 onerror="this.src='https://via
+                 onerror="this.src='https://via.placeholder.com/85?text=${emp.n.split(' ')[0]}&bg=1e293b&textColor=ffffff'">
+            <span>${emp.n}</span>
+        `;
+        
+        container.appendChild(card);
+    });
+});
