@@ -38,7 +38,8 @@ header h1 {
     padding-bottom: 15px;
 }
 
-.grid-container {
+/* Nota: Asegurate de que en tu HTML o JS el contenedor tenga la clase 'grid-container' o el ID 'grid' */
+.grid-container, #grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 45px;
@@ -91,5 +92,13 @@ header h1 {
     letter-spacing: 1px;
 }
 
-@media (max-width: 900px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 500px) { .grid-container { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { 
+    .grid-container, #grid { grid-template-columns: repeat(2, 1fr); } 
+}
+
+@media (max-width: 500px) { 
+    .grid-container, #grid { 
+        grid-template-columns: 1fr; 
+        justify-items: center; /* ESTO CENTRA LAS BURBUJAS EN EL CELULAR */
+    } 
+}
