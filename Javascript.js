@@ -1,21 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     const empresas = [
-        { 
-            n: 'Mercado Libre', 
-            d: 'mercadolibre.com.ar',
-            link: 'https://mercadolibre.eightfold.ai/careers?domain=mercadolibre.com&hl=es&start=0&location=Argentina&pid=40958275&sort_by=match&filter_include_remote=1'
-        },
-        { 
-            n: 'Arcor', 
-            d: 'arcor.com',
-            link: 'https://emqm.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/es/sites/grupoarcorgl/jobs/preview/44966/?keyword=pasante&location=Buenos+Aires%2C+Argentina&locationId=100000136275465&locationLevel=state&mode=location'
-        },
-        { 
-            n: 'Unilever', 
-            d: 'unilever.com.ar',
-            link: 'https://grupociadetalentos.com/unicxs2026/'
-        },
+        { n: 'Mercado Libre', d: 'mercadolibre.com.ar', link: 'https://mercadolibre.eightfold.ai/careers?domain=mercadolibre.com&hl=es&start=0&location=Argentina&pid=40958275&sort_by=match&filter_include_remote=1' },
+        { n: 'Arcor', d: 'arcor.com', link: 'https://emqm.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/es/sites/grupoarcorgl/jobs/preview/44966/?keyword=pasante&location=Buenos+Aires%2C+Argentina&locationId=100000136275465&locationLevel=state&mode=location' },
+        { n: 'Unilever', d: 'unilever.com.ar', link: 'https://grupociadetalentos.com/unicxs2026/' },
         { 
             n: 'Pepsico', 
             d: 'pepsico.com',
@@ -34,10 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
             h: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Logo_Banco_Macro.svg/3840px-Logo_Banco_Macro.svg.png',
             link: 'https://career8.successfactors.com/portalcareer?career_ns=job_listing&company=bancomacro&navBarLevel=JOB_SEARCH&rcm_site_locale=es_ES&site=VjItekU2b1RxaW9LendsLzhXY0dPZ1cxUT09&career_job_req_id=4916&_s.crb=%252fdzZBkuNNniw6xP8BVI%252fIDYCRcZ4uL2DNDbN2xuxVmI%253d'
         },
-        { n: 'PedidosYa', d: 'pedidosya.com.ar' },
+        // PedidosYa con el nuevo link de Logistics Analyst
+        { 
+            n: 'PedidosYa', 
+            d: 'pedidosya.com.ar',
+            link: 'https://empleos.pedidosya.com/job/logistics-and-distribution-analyst-in-buenos-aires-argentina-jid-2019'
+        },
         { n: 'Peñaflor', d: 'grupopenaflor.com.ar', h: 'https://univins.ca/wp-content/uploads/2023/11/grupopenaflor_elesteco_group_logo.png' },
         { n: 'Toyota', d: 'toyota.com.ar' },
-        // Empresas inactivas (se mostrarán al final y en gris)
+        // Inactivas
         { n: 'Disney', d: 'disney.com.ar', inactiva: true },
         { n: 'Holcim', d: 'holcim.com.ar', inactiva: true },
         { n: 'Arcos Dorados', d: 'arcosdorados.com', inactiva: true }
@@ -45,81 +38,90 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const container = document.getElementById('grid');
     
-    // Ordenar: las activas primero, las inactivas al final
+    // Mandamos las inactivas al fondo
     empresas.sort((a, b) => (a.inactiva === b.inactiva) ? 0 : a.inactiva ? 1 : -1);
+
+    // Creamos el Tooltip (cartelito) custom
+    const tooltip = document.createElement('div');
+    tooltip.style.cssText = "position:absolute; background:#ef4444; color:white; padding:8px 12px; border-radius:6px; font-size:12px; font-weight:bold; visibility:hidden; z-index:1000; pointer-events:none; white-space:nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transform: translate(-50%, -120%); transition: visibility 0.1s;";
+    tooltip.innerText = "No hay postulaciones actualmente";
+    document.body.appendChild(tooltip);
 
     empresas.forEach(emp => {
         const card = document.createElement('a');
         const targetLink = emp.link ? emp.link : `https://${emp.d}`;
-        
         card.className = 'bubble';
         
         if (emp.inactiva) {
-            // Estilo para inactivas
             card.style.filter = "grayscale(1)";
-            card.style.opacity = "0.6";
+            card.style.opacity = "0.5";
             card.style.cursor = "not-allowed";
-            card.title = "No hay postulaciones actualmente";
-            card.href = "#"; // No redirige
+            card.href = "#";
+
+            card.addEventListener('mouseenter', (e) => {
+                const rect = card.getBoundingClientRect();
+                tooltip.style.left = `${rect.left + rect.width / 2 + window.scrollX}px`;
+                tooltip.style.top = `${rect.top + window.scrollY}px`;
+                tooltip.style.visibility = 'visible';
+            });
+            card.addEventListener('mouseleave', () => {
+                tooltip.style.visibility = 'hidden';
+            });
             card.onclick = (e) => e.preventDefault();
         } else {
             card.href = targetLink;
             card.target = "_blank";
         }
 
-        // Mantener la lógica del cartel personalizado para Pepsi o similares
         if (emp.alertMsg && !emp.inactiva) {
             card.addEventListener('click', (e) => {
                 e.preventDefault();
-                const overlay = document.createElement('div');
-                overlay.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:flex; justify-content:center; align-items:center; z-index:1000; font-family:sans-serif; backdrop-filter: blur(6px);";
-                const modal = document.createElement('div');
-                modal.style.cssText = "background:#1e293b; padding:35px; border-radius:20px; text-align:center; color:white; max-width:400px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid #334155;";
-                const text = document.createElement('p');
-                text.innerText = emp.alertMsg;
-                text.style.cssText = "font-size: 17px; margin-bottom: 25px; line-height: 1.6; color: #cbd5e1;";
-                modal.appendChild(text);
-                const btnContainer = document.createElement('div');
-                btnContainer.style.cssText = "display: flex; gap: 12px; justify-content: center;";
-                const redirectBtn = document.createElement('button');
-                redirectBtn.style.cssText = "background:#3b82f6; color:white; border:none; padding:12px 24px; border-radius:10px; cursor:pointer; font-weight:bold; transition: 0.3s; opacity: 0.4;";
-                redirectBtn.disabled = true;
-                const cancelBtn = document.createElement('button');
-                cancelBtn.style.cssText = "background:#334155; color:white; border:none; padding:12px 24px; border-radius:10px; cursor:pointer; font-weight:bold; transition: 0.3s;";
-                cancelBtn.innerText = "Cerrar";
-                btnContainer.appendChild(cancelBtn);
-                btnContainer.appendChild(redirectBtn);
-                modal.appendChild(btnContainer);
-                overlay.appendChild(modal);
-                document.body.appendChild(overlay);
-
-                let timeLeft = 3; 
-                redirectBtn.innerText = `Ir a la página (${timeLeft}s)`;
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    if (timeLeft > 0) {
-                        redirectBtn.innerText = `Ir a la página (${timeLeft}s)`;
-                    } else {
-                        clearInterval(timer);
-                        redirectBtn.innerText = "Ir a la página";
-                        redirectBtn.disabled = false;
-                        redirectBtn.style.opacity = "1";
-                    }
-                }, 1000);
-
-                cancelBtn.onclick = () => { clearInterval(timer); document.body.removeChild(overlay); };
-                redirectBtn.onclick = () => { clearInterval(timer); document.body.removeChild(overlay); window.open(targetLink, '_blank'); };
+                mostrarModal(emp.alertMsg, targetLink);
             });
         }
         
         const logoSrc = emp.h ? emp.h : `https://s2.googleusercontent.com/s2/favicons?domain=${emp.d}&sz=256`;
-        
         card.innerHTML = `
-            <img src="${logoSrc}" 
-                 onerror="this.src='https://via.placeholder.com/85?text=${emp.n.split(' ')[0]}&bg=1e293b&textColor=ffffff'">
+            <img src="${logoSrc}" onerror="this.src='https://via.placeholder.com/85?text=${emp.n[0]}'">
             <span>${emp.n}</span>
         `;
-        
         container.appendChild(card);
     });
+
+    function mostrarModal(msg, link) {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:flex; justify-content:center; align-items:center; z-index:2000; backdrop-filter: blur(6px);";
+        const modal = document.createElement('div');
+        modal.style.cssText = "background:#1e293b; padding:35px; border-radius:20px; text-align:center; color:white; max-width:400px; border: 1px solid #334155;";
+        modal.innerHTML = `<p style="margin-bottom:25px; line-height:1.6;">${msg}</p>`;
+        const btnContainer = document.createElement('div');
+        btnContainer.style.cssText = "display:flex; gap:12px; justify-content:center;";
+        const cancelBtn = document.createElement('button');
+        cancelBtn.innerText = "Cerrar";
+        cancelBtn.style.cssText = "background:#334155; color:white; border:none; padding:12px 20px; border-radius:10px; cursor:pointer;";
+        const redirectBtn = document.createElement('button');
+        redirectBtn.disabled = true;
+        redirectBtn.style.cssText = "background:#3b82f6; color:white; border:none; padding:12px 20px; border-radius:10px; cursor:pointer; opacity:0.4;";
+        btnContainer.append(cancelBtn, redirectBtn);
+        modal.appendChild(btnContainer);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        let timeLeft = 3;
+        redirectBtn.innerText = `Ir a la página (${timeLeft}s)`;
+        const timer = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                redirectBtn.innerText = `Ir a la página (${timeLeft}s)`;
+            } else {
+                clearInterval(timer);
+                redirectBtn.innerText = "Ir a la página";
+                redirectBtn.disabled = false;
+                redirectBtn.style.opacity = "1";
+            }
+        }, 1000);
+
+        cancelBtn.onclick = () => { clearInterval(timer); document.body.removeChild(overlay); };
+        redirectBtn.onclick = () => { window.open(link, '_blank'); document.body.removeChild(overlay); };
+    }
 });
