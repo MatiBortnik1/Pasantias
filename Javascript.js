@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             d: 'unilever.com.ar',
             link: 'https://grupociadetalentos.com/unicxs2026/'
         },
-        // Pepsico con el link y el mensaje de alerta
+        // Pepsico con mensaje de alerta
         { 
             n: 'Pepsico', 
             d: 'pepsico.com',
@@ -42,18 +42,78 @@ document.addEventListener("DOMContentLoaded", () => {
     
     empresas.forEach(emp => {
         const card = document.createElement('a');
-        card.href = emp.link ? emp.link : `https://${emp.d}`;
+        const targetLink = emp.link ? emp.link : `https://${emp.d}`;
+        card.href = targetLink;
         card.target = "_blank";
         card.className = 'bubble';
         
-        // Lógica para mostrar el cartel si la empresa tiene un alertMsg
+        // Lógica del nuevo cartel personalizado
         if (emp.alertMsg) {
             card.addEventListener('click', (e) => {
-                const proceed = confirm(emp.alertMsg + "\n\n¿Querés ir a la página de todas formas?");
-                // Si el usuario hace clic en "Cancelar", evitamos que se abra el enlace
-                if (!proceed) {
-                    e.preventDefault(); 
-                }
+                e.preventDefault(); // Frena la apertura instantánea del link
+
+                // Crear fondo oscuro (overlay)
+                const overlay = document.createElement('div');
+                overlay.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:1000; font-family:sans-serif; backdrop-filter: blur(4px);";
+
+                // Crear caja principal
+                const modal = document.createElement('div');
+                modal.style.cssText = "background:#1e293b; padding:30px; border-radius:15px; text-align:center; color:white; max-width:400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);";
+
+                // Agregar el texto de tu mensaje
+                const text = document.createElement('p');
+                text.innerText = emp.alertMsg;
+                text.style.cssText = "font-size: 16px; margin-bottom: 25px; line-height: 1.5;";
+                modal.appendChild(text);
+
+                // Contenedor de los botones
+                const btnContainer = document.createElement('div');
+                btnContainer.style.cssText = "display: flex; gap: 15px; justify-content: center;";
+
+                // Botón Redirigir (arranca deshabilitado)
+                const redirectBtn = document.createElement('button');
+                redirectBtn.style.cssText = "background:#3b82f6; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; transition: 0.2s; opacity: 0.5;";
+                redirectBtn.disabled = true;
+
+                // Botón Cerrar/Cancelar
+                const cancelBtn = document.createElement('button');
+                cancelBtn.style.cssText = "background:#ef4444; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; transition: 0.2s;";
+                cancelBtn.innerText = "Cerrar";
+
+                btnContainer.appendChild(cancelBtn);
+                btnContainer.appendChild(redirectBtn);
+                modal.appendChild(btnContainer);
+                overlay.appendChild(modal);
+                document.body.appendChild(overlay);
+
+                // Lógica de cuenta regresiva de 5 segundos
+                let timeLeft = 5;
+                redirectBtn.innerText = `Ir a la página (${timeLeft}s)`;
+
+                const timer = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft > 0) {
+                        redirectBtn.innerText = `Ir a la página (${timeLeft}s)`;
+                    } else {
+                        clearInterval(timer); // Frena el reloj
+                        redirectBtn.innerText = "Ir a la página";
+                        redirectBtn.disabled = false;
+                        redirectBtn.style.opacity = "1"; // Le devuelve el color normal
+                    }
+                }, 1000);
+
+                // Qué pasa si tocás "Cerrar"
+                cancelBtn.onclick = () => {
+                    clearInterval(timer);
+                    document.body.removeChild(overlay);
+                };
+
+                // Qué pasa si tocás "Ir a la página"
+                redirectBtn.onclick = () => {
+                    clearInterval(timer);
+                    document.body.removeChild(overlay);
+                    window.open(targetLink, '_blank');
+                };
             });
         }
         
