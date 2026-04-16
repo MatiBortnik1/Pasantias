@@ -11,7 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
             d: 'arcor.com',
             link: 'https://emqm.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/es/sites/grupoarcorgl/jobs/preview/44966/?keyword=pasante&location=Buenos+Aires%2C+Argentina&locationId=100000136275465&locationLevel=state&mode=location'
         },
-        { n: 'Unilever', d: 'unilever.com.ar' },
+        // Unilever con el nuevo link
+        { 
+            n: 'Unilever', 
+            d: 'unilever.com.ar',
+            link: 'https://grupociadetalentos.com/unicxs2026/'
+        },
         { n: 'Pepsico', d: 'pepsico.com' },
         { 
             n: 'Tenaris', 
