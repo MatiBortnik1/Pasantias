@@ -39,12 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
             link: 'https://toyota.wd503.myworkdayjobs.com/es/TLAC/details/Programa-de-Pasantas-TOYOTA-2025_10310306?timeType=8619927b7938100b6f4b8009861a0057',
             alertMsg: 'La pasantía comenzó en noviembre 2025 pero sigue figurando en la página'
         },
-        // --- Scania agregada acá ---
-        { 
-            n: 'Scania', 
-            d: 'scania.com.ar',
-            link: 'https://jobs.scania.com/job/GRAND-BOURG-Pasante-de-log%C3%ADstica-Centro-de-distribuci%C3%B3n-1667/1215564201/'
-        },
         // Inactivas
         { n: 'Disney', d: 'disney.com.ar', inactiva: true },
         { n: 'Holcim', d: 'holcim.com.ar', inactiva: true },
