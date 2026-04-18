@@ -39,10 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
             link: 'https://toyota.wd503.myworkdayjobs.com/es/TLAC/details/Programa-de-Pasantas-TOYOTA-2025_10310306?timeType=8619927b7938100b6f4b8009861a0057',
             alertMsg: 'La pasantía comenzó en noviembre 2025 pero sigue figurando en la página'
         },
+        { 
+            n: 'Cargill', 
+            d: 'cargill.com',
+            h: 'cargill.png', // Acá llama a la foto que guardaste en tu carpeta
+            link: 'https://careers.cargill.com/en/job/-/-/23251/93665112656'
+        },
         // Inactivas
         { n: 'Disney', d: 'disney.com.ar', inactiva: true },
         { n: 'Holcim', d: 'holcim.com.ar', inactiva: true },
         { n: 'Arcos Dorados', d: 'arcosdorados.com', inactiva: true }
+        
     ];
 
     const container = document.getElementById('grid');
